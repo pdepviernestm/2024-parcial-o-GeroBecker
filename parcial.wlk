@@ -1,7 +1,6 @@
 // Wollok/parcialObjetos/parcial.wlk
-// Wollok/parcialObjetos/parcial.wlk
 object control {
-  var property intensidadLimite = 10 
+  var property intensidadLimite = 5 
 }
 
 class GrupoPersonas{
@@ -11,8 +10,11 @@ class GrupoPersonas{
     personas.add(persona)
   }
 
-  method todosViven(evento) {
-    personas.forEach{persona=>persona.vivir(evento)}
+  method porExplotar(){
+    personas.all{persona=>persona.porExplotar()}
+  }
+  method vivirEvento(evento) {
+    personas.forEach{persona=>persona.vivirEvento(evento)}
   }
 }
 
@@ -23,10 +25,11 @@ class Persona {
   method nuevaEmocion(emocion){
     emociones.add(emocion)
   }
-  method vivirEvento(evento) {
-    emociones.all{emocion=>emocion.intentarLiberarse()}
-  }
   method porExplotar() = emociones.all{emocion=>emocion.puedeLiberarse()}
+  
+  method vivirEvento(evento) {
+    emociones.forEach{emocion=>emocion.intentarLiberarse(evento)}
+  }
 }
 
 class Evento{
@@ -40,9 +43,12 @@ class Emocion{
 
   method otraCondicion()    
   
+  method puedeLiberarse()=
+    intensidad > control.intensidadLimite() and 
+    self.otraCondicion()
+  
   method intentarLiberarse(evento) {
-    if(intensidad > control.intensidadLimite() and 
-    self.otraCondicion())
+    if(self.puedeLiberarse())
       self.liberarse(evento)
     cantidadEventos +=1
   }
@@ -86,8 +92,8 @@ class Tristeza inherits Emocion{
      causa!="melancolia"
 
   override method liberarse(evento){
-    super(evento)
     causa=evento.descripcion()
+    super(evento)
   } 
 }
 
@@ -103,10 +109,9 @@ class Temor inherits Emocion {
 
 class Ansiedad inherits Tristeza{
     override method liberarse(evento) {
-      if (causa!="desconocida"){
-            super(evento)
-      } else{
-          self.intensidad( intensidad * evento.impacto())
+      super(evento)
+      if (causa==""){
+          self.intensidad(intensidad +110)
       }
     }
 }
