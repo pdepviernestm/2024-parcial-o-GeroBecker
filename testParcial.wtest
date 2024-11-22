@@ -1,0 +1,50 @@
+
+import parcial.*
+
+describe "group of tests " {
+  const compositores = new GrupoPersonas()
+  const osvaldo = new Persona(edad = 16)
+  const alegriaOsvaldo = new Alegria(intensidad=11)
+  const tristezaOsvaldo = new Tristeza(intensidad = 11)
+  const ansiedadOsvaldo = new Ansiedad(intensidad = 11,causa="desconocido")
+
+  const carlos = new Persona(edad = 65)
+  const alegriaCarlos = new Alegria(intensidad=10)
+  const furiaCarlos = new Furia()
+
+  const milongaLlena = new Evento(impacto = 10, descripcion= "milonga")
+  const escuchaPugliese = new Evento(impacto = 15, descripcion= "")
+
+
+  test "es adolescente " {
+    assert.that( osvaldo.esAdolescente())
+  }
+
+  test "Osvaldo no está por explotar" {
+    osvaldo.nuevaEmocion(alegriaOsvaldo)
+    osvaldo.nuevaEmocion(tristezaOsvaldo)
+    assert.notThat(osvaldo.porExplotar())
+  }
+test "Osvaldo si está por explotar" {
+    osvaldo.nuevaEmocion(alegriaOsvaldo)
+    assert.that(osvaldo.porExplotar())
+  }
+test "Osvaldo se pone ansioso" {
+    osvaldo.nuevaEmocion(ansiedadOsvaldo)
+    osvaldo.vivirEvento(escuchaPugliese)
+    assert.that(ansiedadOsvaldo.intensidad()>50)
+  }
+test "Osvaldo y carlos liberan sus emociones" {
+    compositores.nuevoIntegrante(osvaldo)
+
+    osvaldo.nuevaEmocion(alegriaOsvaldo)
+
+    carlos.nuevaEmocion(furiaCarlos)
+
+    furiaCarlos.aprender("asdasdasdasd")
+
+    compositores.vivirEvento(milongaLlena)
+
+    assert.that(compositores.porExplotar())
+  }
+}
