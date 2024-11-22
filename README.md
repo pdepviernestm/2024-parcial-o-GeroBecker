@@ -1,6 +1,2 @@
-
-
-## Example
-
-TODO
+Geronimo Becker - Parcial Objetos
 

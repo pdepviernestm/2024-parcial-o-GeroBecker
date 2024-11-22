@@ -1,0 +1,52 @@
+// Wollok/parcialObjetos/testParcial.wtest
+import parcial.*
+
+describe "group of tests " {
+  const compositores = new GrupoPersonas()
+  const osvaldo = new Persona(edad = 13)
+  const alegriaOsvaldo = new Alegria(intensidad=20)
+  const tristezaosvlado = new Tristeza(intensidad = 70)
+
+  const carlos = new Persona(edad = 40)
+  const alegriaP = new Alegria(intensidad=50)
+  const furiaP = new Furia()
+
+  const partido = new Evento(impacto=10, descripcion="hockey")
+  test "un adolescente " {
+    
+    assert.that( osvaldo.esAdolescente())
+  }
+
+  test "por explotar emocionalmente con tristeza por no melancolia" {
+    tristezaosvlado.causa("escuela")
+    osvaldo.tenerEmocion(alegriaOsvaldo)
+    osvaldo.tenerEmocion(tristezaosvlado)
+    assert.that(osvaldo.porExplotar())
+  }
+
+  test "no esta por explotar emocionalmente con tristeza por melancolia" {
+    osvaldo.tenerEmocion(alegriaOsvaldo)
+    osvaldo.tenerEmocion(tristezaosvlado)
+    assert.notThat(osvaldo.porExplotar())
+  }
+
+  test "un evento es alterador"{
+    var cantidad
+    compositores.agregar(osvaldo)
+    osvaldo.tenerEmocion(alegriaOsvaldo)
+    osvaldo.tenerEmocion(tristezaosvlado)
+    tristezaosvlado.causa("escuela")
+
+    intensamente.agregar(carlos)
+    carlos.tenerEmocion(alegriaP)
+    carlos.tenerEmocion(furiaP)
+    carlos.tenerEmocion(otraP)
+    furiaP.aprender("xxxxxxxxxx")
+
+
+    intensamente.todosViven(partido)
+
+    assert.notEquals (cantidad, intensamente.cantidadPorExplotar())
+
+  }
+}
