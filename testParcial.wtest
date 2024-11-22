@@ -1,14 +1,4 @@
-// Wollok/parcialObjetos/testParcial.wtest
-// Wollok/parcialObjetos/testParcial.wtest
-// Wollok/parcialObjetos/testParcial.wtest
-// Wollok/parcialObjetos/testParcial.wtest
-// Wollok/parcialObjetos/testParcial.wtest
-// Wollok/parcialObjetos/testParcial.wtest
-// Wollok/parcialObjetos/testParcial.wtest
-// Wollok/parcialObjetos/testParcial.wtest
-// Wollok/parcialObjetos/testParcial.wtest
-// Wollok/parcialObjetos/testParcial.wtest
-// Wollok/parcialObjetos/testParcial.wtest
+
 import parcial.*
 
 describe "group of tests " {
